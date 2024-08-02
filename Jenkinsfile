@@ -6,6 +6,8 @@ pipeline {
         dockerHubCredentials = 'docker'
         kubernetes_server_private_ip="192.168.49.2"
         ansible_server_private_ip="localhost"
+        KUBECONFIG_CREDENTIALS_ID = 'my-kubernetes' // Update with your Kubeconfig credentials ID
+        KUBECONFIG_FILE = 'kubeconfig'
     }
  
     agent any
@@ -46,6 +48,17 @@ pipeline {
                         // Push the image
                         sh "docker push ${imagename}:node-app-frontend"
                         sh "docker push ${imagename}:node-app-frontend"
+                    }
+                }
+            }
+        }
+        stage('Setup Kubernetes Context') {
+            steps {
+                script {
+                    withCredentials([file(credentialsId: "${KUBECONFIG_CREDENTIALS_ID}", variable: 'KUBECONFIG_FILE')]) {
+                        sh 'mkdir -p $HOME/.kube'
+                        sh 'cp $KUBECONFIG_FILE $HOME/.kube/config'
+                        sh 'chmod 600 $HOME/.kube/config'
                     }
                 }
             }
