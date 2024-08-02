@@ -52,8 +52,8 @@ pipeline {
         }
         stage('Test minikube Connection') {
             steps {
-                withCredentials([ string(credentialsId: 'my-kubernetes', variable: 'api_token')]) {
-                    sh 'kubectl --token $api_token --server https://192.168.49.2:8443  --insecure-skip-tls-verify=true get all -n production -o wide '
+                withCredentials([ string(credentialsId: 'my-kubernetes')]) {
+                    sh 'kubectl  get all -n production -o wide '
                     }
                 }
             }    
