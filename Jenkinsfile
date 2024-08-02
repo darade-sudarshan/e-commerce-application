@@ -53,7 +53,7 @@ pipeline {
         stage('Test minikube Connection') {
             steps {
                 withCredentials([ string(credentialsId: 'my-kubernetes')]) {
-                    sh 'kubectl  get all -n production -o wide '
+                    sh 'kubectl --server https://192.168.49.2:8443   get all -n production -o wide '
                     }
                 }
             }    
