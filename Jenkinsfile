@@ -52,17 +52,6 @@ pipeline {
                 }
             }
         }
-        stage('Setup Kubernetes Context') {
-            steps {
-                script {
-                    withCredentials([string(credentialsId: "${KUBECONFIG_CREDENTIALS_ID}", variable: 'KUBECONFIG_FILE')]) {
-                        sh 'mkdir -p $HOME/.kube'
-                        sh 'cp $KUBECONFIG_FILE $HOME/.kube/config'
-                        sh 'chmod 600 $HOME/.kube/config'
-                    }
-                }
-            }
-        }
         stage('Test minikube Connection') {
             steps {
                 withCredentials([ string(credentialsId: 'my-kubernetes')]) {
