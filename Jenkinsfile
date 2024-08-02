@@ -51,9 +51,6 @@ pipeline {
             }
         }
     }
-    // stage('Sending Dockerfile to Ansible'){
-       
-    // }
     // stage('Copy files from jenkins to kubernetes server'){
      
     // }
@@ -61,4 +58,16 @@ pipeline {
     // stage('Kubernetes deployment using ansible'){
     
     // }
+     // stage('webapp testing'){
+    
+    // }
+    stage('Deploy App on k8s') {
+      steps {
+        withCredentials([
+            string(credentialsId: 'my_kubernetes', variable: 'api_token')
+            ]) {
+             sh 'kubectl --token $api_token --server https://192.168.49.2:8443  --insecure-skip-tls-verify=true get all -o wide '
+               }
+            }
+    }
 }
