@@ -51,14 +51,14 @@ pipeline {
             }
         }
     }
-    stage('Sending Dockerfile to Ansible'){
+    // stage('Sending Dockerfile to Ansible'){
        
-    }
-    stage('Copy files from jenkins to kubernetes server'){
+    // }
+    // stage('Copy files from jenkins to kubernetes server'){
      
-    }
+    // }
  
-    stage('Kubernetes deployment using ansible'){
+    // stage('Kubernetes deployment using ansible'){
     
-    }
+    // }
 }
