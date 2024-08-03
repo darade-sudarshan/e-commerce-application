@@ -15,7 +15,7 @@ pipeline {
     stages {
         stage('Example stage 1') {
             steps {
-                sh("kubectl --kubeconfig $MY_KUBECONFIG get pods")
+                sh("kubectl get pods --kubeconfig $MY_KUBECONFIG")
             }
         }
         stage('Cloning Git') {
