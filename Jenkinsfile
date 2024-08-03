@@ -54,7 +54,7 @@ pipeline {
         }
         stage('Test minikube Connection') {
             steps {
-                withCredentials([ string(credentialsId: 'minikube-config')]) {
+                withCredentials([ file(credentialsId: 'minikube-config')]) {
                     sh 'kubectl get all -n production -o wide '
                     }
                 }
