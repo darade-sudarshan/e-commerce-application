@@ -6,7 +6,7 @@ pipeline {
         dockerHubCredentials = 'docker'
         kubernetes_server_private_ip="192.168.49.2"
         ansible_server_private_ip="localhost"
-        KUBECONFIG_CREDENTIALS_ID = 'my-kubernetes' // Update with your Kubeconfig credentials ID
+        KUBECONFIG_CREDENTIALS_ID = 'minikube-config' // Update with your Kubeconfig credentials ID
         KUBECONFIG_FILE = 'kubeconfig'
     }
  
@@ -54,7 +54,7 @@ pipeline {
         }
         stage('Test minikube Connection') {
             steps {
-                withCredentials([ string(credentialsId: 'my-kubernetes')]) {
+                withCredentials([ string(credentialsId: 'minikube-config')]) {
                     sh 'kubectl get all -n production -o wide '
                     }
                 }
