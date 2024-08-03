@@ -6,13 +6,18 @@ pipeline {
         dockerHubCredentials = 'docker'
         kubernetes_server_private_ip="192.168.49.2"
         ansible_server_private_ip="localhost"
-        KUBECONFIG_CREDENTIALS_ID = 'minikube-config' // Update with your Kubeconfig credentials ID
-        KUBECONFIG_FILE = 'kubeconfig'
+        //KUBECONFIG_CREDENTIALS_ID = 'minikube-config' // Update with your Kubeconfig credentials ID
+        MY_KUBECONFIG = credentials('minikube-config')
     }
  
     agent any
  
     stages {
+        stage('Example stage 1') {
+            steps {
+                sh("kubectl --kubeconfig $MY_KUBECONFIG get pods")
+            }
+        }
         stage('Cloning Git') {
             steps {
                 git([url: 'https://github.com/darade-sudarshan/e-commerce-application.git', branch: 'main'])
