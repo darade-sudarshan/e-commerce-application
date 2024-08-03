@@ -13,9 +13,9 @@ pipeline {
     agent any
  
     stages {
-        stage('Example stage 1') {
+        stage('Test Kubernetes connectivity') {
             steps {
-                sh("kubectl get pods --kubeconfig $MY_KUBECONFIG")
+                sh("kubectl get pods -n production --kubeconfig $MY_KUBECONFIG")
             }
         }
         stage('Cloning Git') {
@@ -56,14 +56,7 @@ pipeline {
                     }
                 }
             }
-        }
-        stage('Test minikube Connection') {
-            steps {
-                withCredentials([ file(credentialsId: 'minikube-config')]) {
-                    sh 'kubectl get all -n production -o wide '
-                    }
-                }
-            }    
+        }    
     }
         
     // stage('Copy files from jenkins to kubernetes server'){
